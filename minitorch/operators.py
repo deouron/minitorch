@@ -20,6 +20,7 @@ def mul(x: float, y: float) -> float:
 def id(x: float) -> float:
     "$f(x) = x$"
     # TODO: Implement for Task 0.1.
+    return x
     raise NotImplementedError('Need to implement for Task 0.1')
 
 
