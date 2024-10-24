@@ -115,7 +115,7 @@ def test_sigmoid(a: float) -> None:
     assert is_close((1 - sigmoid(a)), sigmoid(-a))
     assert sigmoid(0) == 0.5
     assert sigmoid
-    raise NotImplementedError('Need to implement for Task 0.2')
+    # raise NotImplementedError('Need to implement for Task 0.2')
 
 
 @pytest.mark.task0_2
@@ -130,7 +130,7 @@ def test_transitive(a: float, b: float, c: float) -> None:
         assert lt(a, c)
         assert lt(a, b)
         assert lt(b, c)
-    raise NotImplementedError('Need to implement for Task 0.2')
+    # raise NotImplementedError('Need to implement for Task 0.2')
 
 
 @pytest.mark.task0_2
@@ -141,7 +141,7 @@ def test_symmetric() -> None:
     """
     # TODO: Implement for Task 0.2.
     assert mul(2.0, 3.0) == mul(3.0, 2.0)
-    raise NotImplementedError('Need to implement for Task 0.2')
+    # raise NotImplementedError('Need to implement for Task 0.2')
 
 
 @pytest.mark.task0_2
@@ -153,7 +153,7 @@ def test_distribute() -> None:
     # TODO: Implement for Task 0.2.
     x, y, z = 10.0, 5.0, 7.0
     assert mul(z, add(x, y)) == add(mul(z, x), mul(z, y))
-    raise NotImplementedError('Need to implement for Task 0.2')
+    # raise NotImplementedError('Need to implement for Task 0.2')
 
 
 @pytest.mark.task0_2
@@ -163,7 +163,7 @@ def test_other() -> None:
     """
     # TODO: Implement for Task 0.2.
     assert is_close(log(exp(3.0)), 3.0)
-    raise NotImplementedError('Need to implement for Task 0.2')
+    # raise NotImplementedError('Need to implement for Task 0.2')
 
 
 # ## Task 0.3  - Higher-order functions
@@ -193,7 +193,7 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     """
     # TODO: Implement for Task 0.3.
     assert is_close(sum(ls1) + sum(ls2), sum(addLists(ls1, ls2)))
-    raise NotImplementedError('Need to implement for Task 0.3')
+    # raise NotImplementedError('Need to implement for Task 0.3')
 
 
 @pytest.mark.task0_3
