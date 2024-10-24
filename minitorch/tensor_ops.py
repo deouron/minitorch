@@ -265,7 +265,15 @@ def tensor_map(
         in_strides: Strides,
     ) -> None:
         # TODO: Implement for Task 2.3.
-        raise NotImplementedError('Need to implement for Task 2.3')
+        out_index = [0] * len(out_shape)
+        in_index = [0] * len(in_shape)
+
+        for i in range(len(out)):
+            to_index(i, out_shape, out_index)
+            broadcast_index(out_index, out_shape, in_shape, in_index)
+            out[index_to_position(out_index, out_strides)] = fn(in_storage[index_to_position(in_index, in_strides)])
+
+        # raise NotImplementedError('Need to implement for Task 2.3')
 
     return _map
 
@@ -355,7 +363,20 @@ def tensor_reduce(
         reduce_dim: int,
     ) -> None:
         # TODO: Implement for Task 2.3.
-        raise NotImplementedError('Need to implement for Task 2.3')
+        out_index = [0] * len(out_shape)
+        a_index = [0] * len(a_shape)
+
+        for i in range(len(out)):
+            to_index(i, out_shape, out_index)
+            a_index[:] = out_index[:]
+            result = out[index_to_position(out_index, out_strides)]
+            temp = index_to_position(out_index, out_strides)
+            for j in range(a_shape[reduce_dim]):
+                a_index[reduce_dim] = j
+                a_pos = index_to_position(a_index, a_strides)
+                res = fn(result, a_storage[a_pos])
+            out[temp] = res
+        # raise NotImplementedError('Need to implement for Task 2.3')
 
     return _reduce
 
