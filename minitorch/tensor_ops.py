@@ -369,12 +369,12 @@ def tensor_reduce(
         for i in range(len(out)):
             to_index(i, out_shape, out_index)
             a_index[:] = out_index[:]
-            result = out[index_to_position(out_index, out_strides)]
+            res = out[index_to_position(out_index, out_strides)]
             temp = index_to_position(out_index, out_strides)
             for j in range(a_shape[reduce_dim]):
                 a_index[reduce_dim] = j
                 a_pos = index_to_position(a_index, a_strides)
-                res = fn(result, a_storage[a_pos])
+                res = fn(res, a_storage[a_pos])
             out[temp] = res
         # raise NotImplementedError('Need to implement for Task 2.3')
 
