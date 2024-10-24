@@ -23,7 +23,11 @@ def central_difference(f: Any, *vals: Any, arg: int = 0, epsilon: float = 1e-6) 
         An approximation of $f'_i(x_0, \ldots, x_{n-1})$
     """
     # TODO: Implement for Task 1.1.
-    raise NotImplementedError('Need to implement for Task 1.1')
+    vals_list = list(vals)
+    vals_list[arg] += epsilon
+    delta = f(*vals_list) - f(*vals)
+    return delta / epsilon
+    # raise NotImplementedError('Need to implement for Task 1.1')
 
 
 variable_count = 1
@@ -62,7 +66,20 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
         Non-constant Variables in topological order starting from the right.
     """
     # TODO: Implement for Task 1.4.
-    raise NotImplementedError('Need to implement for Task 1.4')
+    visited, path = set(), []
+
+    def bfs(node):
+        if node.unique_id not in visited:
+            if not node.is_constant():
+                visited.add(node.unique_id)
+                for parent in node.parents:
+                    bfs(parent)
+                path.append(node)
+
+    bfs(variable)
+
+    return path[::-1]
+    # raise NotImplementedError('Need to implement for Task 1.4')
 
 
 def backpropagate(variable: Variable, deriv: Any) -> None:
@@ -77,7 +94,20 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
     No return. Should write to its results to the derivative values of each leaf through `accumulate_derivative`.
     """
     # TODO: Implement for Task 1.4.
-    raise NotImplementedError('Need to implement for Task 1.4')
+    grads = {variable.unique_id: deriv}
+
+    for var in topological_sort(variable):
+        unique_id = var.unique_id
+        var_grad = grads[unique_id]
+        if not var.is_leaf():
+            for var_chain, grad in var.chain_rule(var_grad):
+                var_chain_unique_id = var_chain.unique_id
+                if var_chain_unique_id not in grads:
+                    grads[var_chain_unique_id] = 0.0
+                grads[var_chain_unique_id] += grad
+        else:
+            var.accumulate_derivative(var_grad)
+    # raise NotImplementedError('Need to implement for Task 1.4')
 
 
 @dataclass
