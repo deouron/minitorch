@@ -65,10 +65,13 @@ def to_index(ordinal: int, shape: Shape, out_index: OutIndex) -> None:
 
     """
     # TODO: Implement for Task 2.1.
-    product = 1.0
-    for i, dim in reversed(list(enumerate(shape))):
-        out_index[i] = int(ordinal % (dim * product) // product)
-        product *= dim
+    for i, s in enumerate(shape):
+        product = prod(shape[i:])
+        divisor = product / s
+        index = int(ordinal // divisor)
+
+        ordinal -= index * divisor
+        out_index[i] = index
     # raise NotImplementedError('Need to implement for Task 2.1')
 
 
