@@ -50,7 +50,6 @@ def test_create(backend: str, t1: List[float]) -> None:
         assert t1[i] == t2[i]
 
 
-@reproduce_failure('6.54.0', b'AXicY2RABgAAHAAC')
 @given(data())
 @settings(max_examples=100)
 @pytest.mark.parametrize("fn", one_arg)
