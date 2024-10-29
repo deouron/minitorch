@@ -318,20 +318,20 @@ def tensor_zip(
         b_strides: Strides,
     ) -> None:
         # TODO: Implement for Task 2.3.
-        out_index = [0] * len(out_shape)
-        a_index = [0] * len(a_shape)
-        b_index = [0] * len(b_shape)
+        out_index = np.zeros(len(out_shape), dtype=int)
+        a_in = np.zeros(len(a_shape), dtype=int)
+        b_in = np.zeros(len(b_shape), dtype=int)
 
         for i in range(len(out)):
             to_index(i, out_shape, out_index)
+            
+            temp = index_to_position(out_index, out_strides)
 
-            broadcast_index(out_index, out_shape, a_shape, a_index)
-            broadcast_index(out_index, out_shape, b_shape, b_index)
+            broadcast_index(out_index, out_shape, a_shape, a_in)
+            broadcast_index(out_index, out_shape, b_shape, b_in)
 
-            a_pos = index_to_position(a_index, a_strides)
-            b_pos = index_to_position(b_index, b_strides)
-
-            out[index_to_position(out_index, out_strides)] = fn(a_storage[a_pos], b_storage[b_pos])
+            res = fn(a_storage[index_to_position(a_in, a_strides)], b_storage[index_to_position(b_in, b_strides)])
+            out[temp] = res
         # raise NotImplementedError('Need to implement for Task 2.3')
 
     return _zip
