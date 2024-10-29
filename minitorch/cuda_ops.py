@@ -2,6 +2,7 @@ from typing import Callable, Optional
 
 import numba
 from numba import cuda
+from numba import njit, prange
 
 from .tensor import Tensor
 from .tensor_data import (
@@ -159,7 +160,7 @@ def tensor_map(
         #     broadcast_index(out_index, out_shape, in_shape, in_index)
         #     out[index_to_position(out_index, out_strides)] = fn(in_storage[index_to_position(in_index, in_strides)])
 
-        for i in numba.prange(len(out)):
+        for i in prange(len(out)):
             to_index(i, out_shape, out_index)
             broadcast_index(out_index, out_shape, in_shape, in_index)
 
@@ -418,7 +419,7 @@ def _tensor_matrix_multiply(
     # TODO: Implement for Task 3.4.
     assert a_shape[-1] == b_shape[-2]
 
-    for i in numba.prange(len(out)):
+    for i in prange(len(out)):
         out_0 = i // (out_shape[-1] * out_shape[-2])
         out_1 = (i % (out_shape[-1] * out_shape[-2])) // out_shape[-1]
         out_2 = i % out_shape[-1]
