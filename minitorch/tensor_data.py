@@ -10,7 +10,8 @@ import numpy.typing as npt
 from numpy import array, float64
 from typing_extensions import TypeAlias
 
-from .operators import prod
+# from .operators import prod
+from . import operators
 
 MAX_DIMS = 32
 
@@ -67,7 +68,7 @@ def to_index(ordinal: int, shape: Shape, out_index: OutIndex) -> None:
     """
     # TODO: Implement for Task 2.1.
     for i, s in enumerate(shape):
-        product = prod(shape[i:])
+        product = operators.prod(shape[i:])
         divisor = product / s
         index = int(ordinal // divisor)
 
@@ -175,7 +176,7 @@ class TensorData:
         self._shape = array(shape)
         self.strides = strides
         self.dims = len(strides)
-        self.size = int(prod(shape))
+        self.size = int(operators.prod(shape))
         self.shape = shape
         assert len(self._storage) == self.size
 
