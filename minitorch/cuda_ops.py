@@ -408,12 +408,12 @@ def _tensor_matrix_multiply(
     #    c) Compute the dot produce for position c[i, j]
     # TODO: Implement for Task 3.4.
     assert a_shape[-1] == b_shape[-2]
-    
+
     for i in numba.prange(len(out)):
         out_0 = i // (out_shape[-1] * out_shape[-2])
         out_1 = (i % (out_shape[-1] * out_shape[-2])) // out_shape[-1]
         out_2 = i % out_shape[-1]
-        
+
         out_0_ = out_0 * out_strides[0]
         out_1_ = out_1 * out_strides[1]
         out_2_ = out_2 * out_strides[2]
