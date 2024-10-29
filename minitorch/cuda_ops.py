@@ -407,7 +407,27 @@ def _tensor_matrix_multiply(
     #    b) Copy into shared memory for b matrix
     #    c) Compute the dot produce for position c[i, j]
     # TODO: Implement for Task 3.4.
-    raise NotImplementedError('Need to implement for Task 3.4')
+    assert a_shape[-1] == b_shape[-2]
+    
+    for i in numba.prange(len(out)):
+        out_0 = i // (out_shape[-1] * out_shape[-2])
+        out_1 = (i % (out_shape[-1] * out_shape[-2])) // out_shape[-1]
+        out_2 = i % out_shape[-1]
+        
+        out_0_ = out_0 * out_strides[0]
+        out_1_ = out_1 * out_strides[1]
+        out_2_ = out_2 * out_strides[2]
+
+        a_start = out_0 * a_batch_stride + out_1_
+        b_start = out_0 * b_batch_stride + out_2_
+
+        temp = 0
+        for position in range(a_shape[-1]):
+            a_mod_ind = a_start + position * a_strides[2]
+            b_mod_ind = b_start + position * b_strides[1]
+            temp += a_storage[a_mod_ind] * b_storage[b_mod_ind]
+        out[out_0_ + out_1_ + out_2_] = temp
+    # raise NotImplementedError('Need to implement for Task 3.4')
 
 
 tensor_matrix_multiply = cuda.jit(_tensor_matrix_multiply)
