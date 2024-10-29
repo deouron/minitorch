@@ -158,7 +158,7 @@ def tensor_map(
         #     to_index(i, out_shape, out_index)
         #     broadcast_index(out_index, out_shape, in_shape, in_index)
         #     out[index_to_position(out_index, out_strides)] = fn(in_storage[index_to_position(in_index, in_strides)])
-        
+
         for i in numba.prange(len(out)):
             to_index(i, out_shape, out_index)
             broadcast_index(out_index, out_shape, in_shape, in_index)
@@ -166,7 +166,7 @@ def tensor_map(
             temp = in_storage[index_to_position(in_index, in_strides)]
             index = index_to_position(out_index, out_strides)
             out[index] = fn(temp)
-            
+ 
         # raise NotImplementedError('Need to implement for Task 3.3')
 
     return cuda.jit()(_map)  # type: ignore
