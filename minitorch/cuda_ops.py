@@ -166,7 +166,7 @@ def tensor_map(
             temp = in_storage[index_to_position(in_index, in_strides)]
             index = index_to_position(out_index, out_strides)
             out[index] = fn(temp)
- 
+
         # raise NotImplementedError('Need to implement for Task 3.3')
 
     return cuda.jit()(_map)  # type: ignore
