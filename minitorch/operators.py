@@ -4,6 +4,7 @@ Collection of the core mathematical operators used throughout the code base.
 
 import math
 from typing import Callable, Iterable
+from numba import jit
 
 # ## Task 0.1
 #
@@ -237,6 +238,7 @@ def sum(ls: Iterable[float]) -> float:
     # raise NotImplementedError('Need to implement for Task 0.3')
 
 
+@jit(nopython=True)
 def prod(ls: Iterable[float]) -> float:
     "Product of a list using `reduce` and `mul`."
     # TODO: Implement for Task 0.3.
