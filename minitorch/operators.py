@@ -227,18 +227,18 @@ def reduce(
             out = fn(out, x[i])
         return out
     return reduce_
-    raise NotImplementedError('Need to implement for Task 0.3')
+    # raise NotImplementedError('Need to implement for Task 0.3')
 
 
 def sum(ls: Iterable[float]) -> float:
     "Sum up a list using `reduce` and `add`."
     # TODO: Implement for Task 0.3.
     return reduce(add, 0)(ls)
-    raise NotImplementedError('Need to implement for Task 0.3')
+    # raise NotImplementedError('Need to implement for Task 0.3')
 
 
 def prod(ls: Iterable[float]) -> float:
     "Product of a list using `reduce` and `mul`."
     # TODO: Implement for Task 0.3.
     return reduce(mul, 1)(ls)
-    raise NotImplementedError('Need to implement for Task 0.3')
+    # raise NotImplementedError('Need to implement for Task 0.3')
