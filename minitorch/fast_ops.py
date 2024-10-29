@@ -211,7 +211,7 @@ def tensor_zip(
 
         for i in prange(len(out)):
             to_index(i, out_shape, out_index)
-            
+
             temp = index_to_position(out_index, out_strides)
 
             broadcast_index(out_index, out_shape, a_shape, a)
